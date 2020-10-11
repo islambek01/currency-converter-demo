@@ -7,6 +7,7 @@ Canada's Valet API](https://www.bankofcanada.ca/valet/docs).
 
     $ git clone https://github.com/j-n-f/currency-converter-demo.git
     $ cd currency-converter-demo
+    $ npm update
     $ ng serve --open
 
 ## Notes
