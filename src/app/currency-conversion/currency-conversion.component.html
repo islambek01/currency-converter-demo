@@ -29,7 +29,7 @@
         </span>
 
         <!-- Form to specify conversion parameters -->
-        <mat-form-field appearance="fill" class= "singleton">
+        <mat-form-field appearance="fill" class="singleton">
             <mat-label>Foreign Currency</mat-label>
             <input type="text" matInput [formControl]="fxCurrencyControl" [matAutocomplete]="auto" (click)="$event.target.select()">
             <mat-hint *ngIf="!foreignSelected">&#8593; Select a foreign currency to start</mat-hint>
