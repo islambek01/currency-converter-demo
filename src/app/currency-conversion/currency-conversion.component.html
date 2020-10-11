@@ -1,0 +1,67 @@
+<mat-card>
+    <!-- loading screen -->
+    <div id="loading" *ngIf="(currentStateObs | async) != 'ready' && (currentStateObs | async) != 'loadingError'">
+        <mat-spinner></mat-spinner>
+        <span *ngIf="(currentStateObs | async) == 'fetchingCurrencies'">Fetching available foreign currencies...</span>
+        <span *ngIf="(currentStateObs | async) == 'fetchingExchangeRates'">Fetching historical exchange rates...</span>
+    </div>
+
+    <!-- loading error -->
+    <div *ngIf="(currentStateObs | async) == 'loadingError'" id="loadingError">
+        <span><b>Error:</b> failed to load data from Bank of Canada API. The service may be down, or you may have a browser plugin which is blocking the request.</span>
+    </div>
+
+    <!-- form displayed after component has conversion data available -->
+    <form *ngIf="(currentStateObs | async) == 'ready'">
+        <!-- Line of text over the field to display conversion details -->
+        <span *ngIf="!foreignSelected || (lastConversion == null)" id="conversionResult" class="singleton">&nbsp;</span>
+        <span *ngIf="lastConversion && foreignSelected && toCAD && fxAmountControl.valid" id="conversionResult" class="singleton">
+            {{fxAmountControl.value | currency:foreignSelection.alphaCode:'symbol':"1.2-4"}} converts to {{cadAmountControl.value | currency:'CAD':'symbol':"1.2-4"}}
+            <span *ngIf="lastConversion != null">
+                (1 {{lastConversion[0]}} = {{lastConversion[2] | number:'1.2-4'}} {{lastConversion[1]}} on {{lastConversion[3] | date:'yyyy-MM-dd'}})
+            </span>
+        </span>
+        <span *ngIf="lastConversion && foreignSelected && !toCAD && cadAmountControl.valid" id="conversionResult" class="singleton">
+            {{cadAmountControl.value | currency:'CAD':'symbol':"1.2-4"}} converts to {{fxAmountControl.value | currency:foreignSelection.alphaCode:'symbol':"1.2-4"}}
+            <span *ngIf="lastConversion != null">
+                (1 {{lastConversion[0]}} = {{lastConversion[2] | number:'1.2-4'}} {{lastConversion[1]}} on {{lastConversion[3] | date: 'yyyy-MM-dd'}})
+            </span>
+        </span>
+
+        <!-- Form to specify conversion parameters -->
+        <mat-form-field appearance="fill" class= "singleton">
+            <mat-label>Foreign Currency</mat-label>
+            <input type="text" matInput [formControl]="fxCurrencyControl" [matAutocomplete]="auto" (click)="$event.target.select()">
+            <mat-hint *ngIf="!foreignSelected">&#8593; Select a foreign currency to start</mat-hint>
+            <mat-error *ngIf="fxCurrencyControl.invalid">You must select a valid currency</mat-error>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option.fullName}} [{{option.alphaCode}}]
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field id="fx-input" [class.disabledInputSelectable]="foreignSelected && !toCAD" appearance="fill" (click)="switchFXToCAD()">
+            <mat-label *ngIf="foreignSelected">{{foreignSelection.alphaCode}} Amount</mat-label>
+            <mat-label *ngIf="!foreignSelected">Foreign Amount</mat-label>
+            <input #inputFX [formControl]="fxAmountControl" type="text" (click)="switchFXToCAD()" matInput>
+            <mat-hint *ngIf="foreignSelected && !toCAD">&#8593; click to convert {{foreignSelection.alphaCode}} to CAD</mat-hint>
+            <mat-error *ngIf="fxAmountControl.invalid">incorrect format (max 4 decimal places, no zero prefix)</mat-error>
+        </mat-form-field>
+        <mat-form-field id="cad-input" [class.disabledInputSelectable]="foreignSelected && toCAD" appearance="fill" (click)="switchCADToFX()">
+            <mat-label>CAD Amount</mat-label>
+            <input #inputCAD [formControl]="cadAmountControl" type="text" (click)="switchCADToFX()" matInput>
+            <mat-hint *ngIf="foreignSelected && toCAD">&#8593; click to convert CAD to {{foreignSelection.alphaCode}}</mat-hint>
+            <mat-error *ngIf="cadAmountControl.invalid">incorrect format (max 4 decimal places, no zero prefix)</mat-error>
+        </mat-form-field>
+        <!-- Note: there's a bug in Angular Material CSS, so the label for this datepicker will appear faded even though the toggle still works -->
+        <!-- The datepicker as an entity isn't completely disabled, but the CSS behaves like it is -->
+        <mat-form-field appearance="fill" id="datePicker">
+            <mat-label>Rate on</mat-label>
+            <!-- Note: tried to use [matDatepickerFilter], but the function it calls will re-bind `this` to the datepicker rather than the -->
+            <!-- component class. Effectively, you can't have date filtering which relies on logic in your component class. -->
+            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" [formControl]="dateControl">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [disabled]="foreignSelected ? false : true"></mat-datepicker>
+        </mat-form-field>
+    </form>
+</mat-card>

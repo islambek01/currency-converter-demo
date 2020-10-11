@@ -1,0 +1,33 @@
+.mainNav {
+}
+
+.container {
+    margin-top: 2rem !important;
+    max-width: 64rem;
+    margin: 0 auto 0 auto;
+}
+
+#info-modal {
+    display: block;
+    background-color: #EEE;
+    color: #000;
+    padding: 1rem 0 1rem 0;
+    width: 100%;
+}
+
+#info-modal div {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    max-width: 64rem;
+    margin: 0 auto 0 auto;
+    padding: 0 2rem 0 2rem;
+}
+
+#info-modal div p {
+    flex-grow: 1;
+    line-height: 162%;
+}
+
+#info-modal span button {
+}

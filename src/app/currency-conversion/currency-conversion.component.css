@@ -1,0 +1,53 @@
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-flow: wrap;
+}
+
+form mat-form-field, form span {
+    flex-grow: 1;
+    margin: 1rem;
+    min-width: calc(33% - 6rem);
+}
+
+span#conversionResult {
+    text-align: center;
+}
+
+mat-form-field#datePicker {
+    flex-grow: 0;
+}
+
+form .singleton, form mat-form-field .singleton {
+    break-after: always;
+}
+
+#loading {
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+#loading span {
+    min-width: 100%;
+    text-align: center;
+    margin: 1rem;
+}
+
+#cad-input.disabledInputSelectable, #fx-input.disabledInputSelectable {
+    cursor: pointer;
+}
+/* working around a minor annoyance in angular material, the <input> is in the way of the above CSS rule */
+#cad-input.disabledInputSelectable input, #fx-input.disabledInputSelectable input {
+    pointer-events: none;
+}
+
+#loadingError span {
+    display: block;
+    margin: 1rem;
+    text-align: center;kj:w
+    
+}
