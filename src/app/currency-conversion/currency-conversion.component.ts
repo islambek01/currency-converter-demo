@@ -157,7 +157,7 @@ export class CurrencyConversionComponent implements OnInit {
     this.fxAmountControl.valueChanges.subscribe(value => {
       if (value && this.foreignSelected && this.toCAD && this.fxAmountControl.valid) {
         this.runConversion();
-      } else if (this.fxAmountControl.invalid || !value) {
+      } else if (this.toCAD && (this.fxAmountControl.invalid || !value)) {
         this.cadAmountControl.setValue(null, {emitEvent: false});
         this.lastConversion = null;
       }
@@ -166,7 +166,7 @@ export class CurrencyConversionComponent implements OnInit {
     this.cadAmountControl.valueChanges.subscribe(value => {
       if (value && this.foreignSelected && !this.toCAD && this.cadAmountControl.valid) {
         this.runConversion();
-      } else if (this.cadAmountControl.invalid || !value) {
+      } else if (!this.toCAD && (this.cadAmountControl.invalid || !value)) {
         this.fxAmountControl.setValue(null, {emitEvent: false});
         this.lastConversion = null;
       }
