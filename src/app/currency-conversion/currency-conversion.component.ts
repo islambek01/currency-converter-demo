@@ -135,9 +135,9 @@ export class CurrencyConversionComponent implements OnInit {
         // The user may have backspaced a valid currency name, so we will make the UI react accordingly
         this.foreignSelected = false;
         this.fxAmountControl.disable();
-        this.fxAmountControl.setValue(null);
+        this.fxAmountControl.setValue(null, {emitEvent: false});
         this.cadAmountControl.disable();
-        this.cadAmountControl.setValue(null);
+        this.cadAmountControl.setValue(null, {emitEvent: false});
       }
     });
 
