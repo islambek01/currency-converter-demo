@@ -43,13 +43,13 @@
         <mat-form-field id="fx-input" [class.disabledInputSelectable]="foreignSelected && !toCAD" appearance="fill" (click)="switchFXToCAD()">
             <mat-label *ngIf="foreignSelected">{{foreignSelection.alphaCode}} Amount</mat-label>
             <mat-label *ngIf="!foreignSelected">Foreign Amount</mat-label>
-            <input #inputFX [formControl]="fxAmountControl" type="text" (click)="switchFXToCAD()" matInput>
+            <input #inputFX [formControl]="fxAmountControl" type="text" matInput>
             <mat-hint *ngIf="foreignSelected && !toCAD">&#8593; click to convert {{foreignSelection.alphaCode}} to CAD</mat-hint>
             <mat-error *ngIf="fxAmountControl.invalid">incorrect format (max 4 decimal places, no zero prefix)</mat-error>
         </mat-form-field>
         <mat-form-field id="cad-input" [class.disabledInputSelectable]="foreignSelected && toCAD" appearance="fill" (click)="switchCADToFX()">
             <mat-label>CAD Amount</mat-label>
-            <input #inputCAD [formControl]="cadAmountControl" type="text" (click)="switchCADToFX()" matInput>
+            <input #inputCAD [formControl]="cadAmountControl" type="text" matInput>
             <mat-hint *ngIf="foreignSelected && toCAD">&#8593; click to convert CAD to {{foreignSelection.alphaCode}}</mat-hint>
             <mat-error *ngIf="cadAmountControl.invalid">incorrect format (max 4 decimal places, no zero prefix)</mat-error>
         </mat-form-field>
