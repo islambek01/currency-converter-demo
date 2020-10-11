@@ -148,6 +148,11 @@ export class CurrencyConversionComponent implements OnInit {
       }
     });
 
+    // Mark the form fields as touched so that they display validation errors immediately (without waiting for at least
+    // 1 blur event)
+    this.fxAmountControl.markAsTouched();
+    this.cadAmountControl.markAsTouched();
+
     /* If the foreign currency amount changes, we should update the UI with the conversion */
     this.fxAmountControl.valueChanges.subscribe(value => {
       if (value && this.foreignSelected && this.toCAD && !this.fxAmountControl.invalid) {
