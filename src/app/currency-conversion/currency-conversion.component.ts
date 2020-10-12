@@ -290,6 +290,16 @@ export class CurrencyConversionComponent implements OnInit {
 
     this.dateControl.setValue(this.maxDate);
 
+    // Some of the conversion data from BoC has certain rates for only part of the full time range. We will filter out
+    // conversions that aren't available across the entire range of observations
+    this.options = this.options.filter((currency : CurrencyMetadata) => {
+      let alphaCode = currency.alphaCode;
+      return rates['observations'].every((convDate) => {
+        let desiredKey = `FX${alphaCode}CAD`;
+        return Object.keys(convDate).some(convKey => convKey == desiredKey);
+      });
+    });
+
     this.state = ConverterState.ready;
   }
 
