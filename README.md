@@ -21,9 +21,13 @@ Canada's Valet API](https://www.bankofcanada.ca/valet/docs).
     and the date that the rate was published.
 *   The app should work properly if used in a timezone other than the BoC's (
     i.e. `America/Toronto`).
-*   If you start using the app at 16:20 ET, then perform a conversion at 16:40
-    ET, there's no timer logic to go and fetch the new rates. You can refresh
-    the page to make the app go fetch the rates again.
+*   If you start the app before 16:30 ET on a weekday, the app will prompt you
+    when new rates become available, and you can optionally update to have the
+    latest rates. If you dismiss the prompt, you will have to refresh the page
+    to get the new rates (this is indicated by a block of text at the bottom
+    of the conversion pane).
+*   You can test the rate update prompt with the query
+    `/?forceUpdatePrompt=true` (i.e. `localhost:4200/?forceUpdatePrompt=true`)
 *   If you use any kind of privacy plugin, or the BoC API is unavailable, an
     error message will be displayed. Adjust your browser and refresh the page.
 *   The UI will display at most 4 decimal places on conversions (it will display

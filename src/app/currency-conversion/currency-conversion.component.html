@@ -64,4 +64,5 @@
             <mat-datepicker #picker [disabled]="foreignSelected ? false : true"></mat-datepicker>
         </mat-form-field>
     </form>
+    <p *ngIf="userSkippedRateRefresh">New rates are available, refresh the page to load them</p>
 </mat-card>

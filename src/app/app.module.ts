@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
+import { CurrencyConversionComponent, DialogPromptRateCheck } from './currency-conversion/currency-conversion.component';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     CurrencyConversionComponent,
+    DialogPromptRateCheck,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +43,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatDialogModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+  ],
+  entryComponents: [
+    DialogPromptRateCheck
   ],
   providers: [],
   bootstrap: [AppComponent]
