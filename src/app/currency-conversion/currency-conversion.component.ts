@@ -40,7 +40,7 @@ export class CurrencyConversionComponent implements OnInit {
   currentStateSubject : BehaviorSubject<string> = new BehaviorSubject<string>("");
   currentStateObs : Observable<string> = this.currentStateSubject.asObservable();
 
-  /* Options for foreign currency conversions */
+  /* Options for foreign currency conversions (e.g. 'CAD', 'USD', 'EUR') */
   options : CurrencyMetadata[] = [];
 
   /* Form control for selecting a foreign currency */
