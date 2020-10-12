@@ -47,7 +47,9 @@ Canada's Valet API](https://www.bankofcanada.ca/valet/docs).
 A few things I would do if I had more time:
 
 *   The rate update feature doesn't check to see if it actually got the new
-    rates. There should be retry logic to do that.
+    rates. There should be retry logic to do that. It appears that rate
+    information isn't published on holidays as well, so the logic would also
+    need to know what holidays it shouldn't check on.
 *   The `CurrencyConversionService` could update rates in the background, and
     create a `Subject` which the `CurrencyConversionComponent` would subscribe
     to, rather than having that logic driven by an interval timer in the
