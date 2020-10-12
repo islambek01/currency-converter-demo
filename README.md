@@ -41,3 +41,30 @@ Canada's Valet API](https://www.bankofcanada.ca/valet/docs).
     under which they make this data available for use.
 *   This app should look decent on smaller screens, and has some amount of
     responsiveness.
+
+## Room for Improvement
+
+A few things I would do if I had more time:
+
+*   The rate update feature doesn't check to see if it actually got the new
+    rates. There should be retry logic to do that.
+*   The `CurrencyConversionService` could update rates in the background, and
+    create a `Subject` which the `CurrencyConversionComponent` would subscribe
+    to, rather than having that logic driven by an interval timer in the
+    `CurrencyConversionComponent`. This would also make it easier for multiple
+    components to use the service. It would also remove the need to hack the
+    refresh functionality in by having `CurrencyConversionComponent` restart
+    itself to fetch rates. It would only have to update the range on the
+    datepicker component.
+*   `CurrencyConversionService` could be optimized to only request rate data
+    that it doesn't already have.
+*   `CurrencyConversionService` could use `localStorage` to reduce load on BoC's
+    API, and enable offline functionality.
+*   Some of the filtering performed in `CurrencyConversionComponent` would also
+    be better placed in `CurrencyConversionService` (e.g. filtering out
+    conversions that don't have rates for the full date range returned by the
+    BoC API)
+*   It might be possible to improve on the UX so that currencies that only have
+    rates for part of the date range could still be used. It would involve
+    updating the datepicker when a new currency is selected. (FWIW, only 3
+    currencies listed by the API had gaps in their conversion rate history)
