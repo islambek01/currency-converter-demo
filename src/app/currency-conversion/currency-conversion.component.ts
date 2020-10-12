@@ -460,14 +460,14 @@ export class CurrencyConversionComponent implements OnInit {
       return true;
     }
 
-    let nowEasternTime = mtz(now) ?? mtz.utc().tz('America/Toronto');
-    let lastFetch = mtz(startedAt) ?? mtz(this.easternTimeLastRateFetch);
+    let nowEasternTime = now ? mtz(now) : mtz.utc().tz('America/Toronto');
+    let lastFetch = startedAt ? mtz(startedAt) : mtz(this.easternTimeLastRateFetch);
 
     let nowEasternWeekday = nowEasternTime.isoWeekday()
     let isWeekday = nowEasternWeekday >= 1 && nowEasternWeekday <= 5;
 
     if (isWeekday) {
-      let checkRatesAfter = lastFetch.startOf('day')
+      let checkRatesAfter = mtz(lastFetch).startOf('day')
         .hour(this.fetchRatesAfterHour)
         .minute(this.fetchRatesAfterMinute);
 
