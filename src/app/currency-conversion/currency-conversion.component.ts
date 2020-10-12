@@ -284,7 +284,8 @@ export class CurrencyConversionComponent implements OnInit {
     // We store valid conversion dates, but as noted in the template, it's impossible to use this class variable in a
     // dynamic filtering function for the datepicker. (you can re-bind `this` to be the component class when setting
     // up the filtering callback, but then the datepicker stops working...). Instead, the user can select any date from
-    //
+    // minDate to maxDate. If Angular Material ever gets patched, this information could make the datepicker more
+    // user-friendly and intuitive.
     this.validConversionDates = this.conversionService.getValidConversionDates();
 
     this.dateControl.setValue(this.maxDate);
