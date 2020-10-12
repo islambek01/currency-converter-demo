@@ -80,28 +80,7 @@ export class CurrencyConversionComponent implements OnInit {
   toCAD = true;
 
   /**
-   * When the user makes a foreign currency selection, amount controls need to
-   * be enabled/disabled according to whether or not a selection is made.
    **/
-  set foreignSelected(selected: boolean) {
-    if (selected) {
-      setTimeout(() => {
-        if (this.toCAD) {
-          this.fxAmountControl.enable();
-        } else {
-          this.cadAmountControl.enable();
-        }
-      }, 0);
-    } else {
-      setTimeout(() => {
-        this.fxAmountControl.disable();
-        this.cadAmountControl.disable();
-      }, 0);
-    }
-    this._foreignSelected = selected;
-  }
-  get foreignSelected() {
-    return this._foreignSelected; 
   }
 
   constructor(private conversionService: CurrencyConversionService) { 
@@ -328,5 +307,30 @@ export class CurrencyConversionComponent implements OnInit {
     }
 
     this.currentStateSubject.next(s.toString());
+  }
+
+  /**
+   * When the user makes a foreign currency selection, amount controls need to be enabled/disabled according to whether
+   * or not a selection is made.
+   **/
+  set foreignSelected(selected: boolean) {
+    if (selected) {
+      setTimeout(() => {
+        if (this.toCAD) {
+          this.fxAmountControl.enable();
+        } else {
+          this.cadAmountControl.enable();
+        }
+      }, 0);
+    } else {
+      setTimeout(() => {
+        this.fxAmountControl.disable();
+        this.cadAmountControl.disable();
+      }, 0);
+    }
+    this._foreignSelected = selected;
+  }
+  get foreignSelected() {
+    return this._foreignSelected;
   }
 }
