@@ -233,7 +233,6 @@ export class CurrencyConversionComponent implements OnInit {
     );
 
     // Start a timer to check for new rate information
-    this.handleRateUpdateTimer();
     this.rateUpdateInterval = setInterval(() => this.handleRateUpdateTimer(), this.rateUpdateTimeout)
   }
 
