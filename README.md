@@ -39,3 +39,5 @@ Canada's Valet API](https://www.bankofcanada.ca/valet/docs).
 *   Use of this app involves using the Valet API provided by the Bank of Canada,
     and as such you agree to the [terms](https://www.bankofcanada.ca/terms/)
     under which they make this data available for use.
+*   This app should look decent on smaller screens, and has some amount of
+    responsiveness.
